@@ -20,6 +20,11 @@
                         {{ __('Register') }}
                     </x-nav-link>
                     @endrole
+                    @role('admin')
+                    <x-nav-link :href="route('equipment.index')" :active="request()->routeIs('equipment.index')">
+                        {{ __('Equipment') }}
+                    </x-nav-link>
+                    @endrole
                 </div>
             </div>
 

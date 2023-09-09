@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddUserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserController;
@@ -53,6 +54,9 @@ Route::post('/addmin/register/add_user', [AddUserController::class, 'store'])->n
 // User Route Page
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
+
+// Equipement Page
+Route::get('/admin/equipment', [EquipmentController::class, 'index'])->name('equipment.index');
 
 // Reset password page
 Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password.index');
