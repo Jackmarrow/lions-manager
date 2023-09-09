@@ -33,15 +33,38 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action={{route('add_user.store')}} method="POST">
+                                <form action={{ route('add_user.store') }} method="POST">
                                     @csrf
-                                    <div>
-                                        <label for="name" class="form-label">Name</label>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label" required>Name</label>
                                         <input type="text" name="name" id="name" class="form-control">
                                     </div>
-                                    <div>
-                                        <label for="email" class="form-label">Email</label>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label" required>Email</label>
                                         <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="type" class="form-label">User type</label>
+                                        <select name="type" id="type" class="form-control">
+                                            <option value="user interne">user interne</option>
+                                            <option value="user externe">user externe</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="role">
+                                            Role
+                                        </label> <br>
+                                        @foreach ($roles as $role)
+                                            @if ($role->name !== 'admin' && $role->name !== 'none' && $role->name !== 'user')
+                                                <div class="btn-group" role="group"
+                                                    aria-label="Basic checkbox toggle button group">
+                                                    <input class="btn-check" type="checkbox" name="role[]"
+                                                        id="btncheck{{ $loop->iteration }}" value="{{ $role->id }}">
+                                                    <label for="btncheck{{ $loop->iteration }}"
+                                                        class="btn btn-outline-success">{{ $role->name }}</label>
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     </div>
                                     <button type="submit" class="btn btn-primary">Add a user</button>
                                 </form>

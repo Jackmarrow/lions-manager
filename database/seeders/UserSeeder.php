@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
     {
        User::create([
             'name' => 'admin',
+            'type'=> 'user interne',
             'password_update'=> 1,
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
@@ -23,6 +24,7 @@ class UserSeeder extends Seeder
 
        User::create([
             'name' => 'user',
+            'type'=> 'user externe',
             'password_update'=>0,
             'email' => 'user@user.com',
             'email_verified_at' => now(),

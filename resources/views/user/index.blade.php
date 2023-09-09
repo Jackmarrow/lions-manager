@@ -15,6 +15,14 @@
             <!-- Page Content -->
             <main>
                <h1>You are in the user page</h1>
+               @foreach ($users as $user)
+                 @foreach ($user->roles as $role)
+                   <p>{{$role}}</p>  
+                 @endforeach  
+               @endforeach
+               @role('user')
+                <p>Yes i'm normal user</p>
+               @endrole
             </main>
         </div>
     </body>
