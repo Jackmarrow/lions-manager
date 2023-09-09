@@ -21,8 +21,8 @@
                     </x-nav-link>
                     @endrole
                     @role('admin')
-                    <x-nav-link :href="route('equipment.index')" :active="request()->routeIs('equipment.index')">
-                        {{ __('Equipment') }}
+                    <x-nav-link :href="route('tools.index')" :active="request()->routeIs('tools.index')">
+                        {{ __('Tools') }}
                     </x-nav-link>
                     @endrole
                 </div>

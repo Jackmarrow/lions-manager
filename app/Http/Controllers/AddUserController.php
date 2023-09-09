@@ -14,12 +14,15 @@ use Spatie\Permission\Models\Role;
 
 class AddUserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $roles = Role::all();
-        return view('admin.pages.register', compact('roles'));
+        $users = User::all();
+        return view('admin.pages.register', compact('roles', 'users'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => ['required'],
             'email' => ['required'],
@@ -31,8 +34,8 @@ class AddUserController extends Controller
 
         //Email Body
         $mailData = [
-            'email'=> $request->email,
-            'password'=> $password
+            'email' => $request->email,
+            'password' => $password
         ];
 
         Mail::to('antonatic345@gmail.com')->send(new DemoMail($mailData));
@@ -42,29 +45,7 @@ class AddUserController extends Controller
         // Retreive all the selected role
         $roles = $request->input('role');
 
-        // If no role has been selected
-        if($roles == null){
-            $userData = [
-                'role_id'=> 4,
-                'user_id'=>$userId,
-            ];
-            UserRole::create($userData);
-        }
-
-        // If Multiple or one role has been selected
-        else{
-        // Loop through all selected role
-        foreach ($roles as $role) {
-            $userData = [
-                'role_id'=>$role,
-                'user_id'=>$userId,
-            ];
-            UserRole::create($userData);
-        }
-        }
-
-
-        // Create User Info
+        // Create User
         $user = User::create([
             'name' => $request->name,
             'type' => $request->type,
@@ -72,15 +53,41 @@ class AddUserController extends Controller
             'password' => Hash::make($password),
         ]);
 
-        // assign roles
-        // Loop through all selected role
-        foreach ($roles as $role) {
-            $user->assignRole($role);
+        // If no role has been selected
+        if ($roles == null) {
+            $userData = [
+                'role_id' => 5,
+                'user_id' => $userId,
+            ];
+            UserRole::create($userData);
+            $user->assignRole('none');
         }
+
+        // If Multiple or one role has been selected
+        else {
+            // Loop through all selected role
+            foreach ($roles as $role) {
+                $userData = [
+                    'role_id' => $role,
+                    'user_id' => $userId,
+                ];
+                UserRole::create($userData);
+                // assign roles
+                $user->assignRole($role);
+            }
+        }
+
         // 
 
         event(new Registered($user));
 
         return redirect()->back();
+    }
+
+    public function destroy(User $user){
+
+        $user->delete();
+
+        return back();
     }
 }

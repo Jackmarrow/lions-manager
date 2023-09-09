@@ -16,19 +16,19 @@
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main>
-                <!-- Button trigger modal -->
+            <main class="p-5">
+                <!-- Button trigger register Modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
                     Register a new user
                 </button>
 
-                <!-- Modal -->
+                <!-- Register body content -->
                 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="registerModalLabel">Modal title</h1>
+                                <h1 class="modal-title fs-5" id="registerModalLabel">Register a user</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -72,6 +72,36 @@
                         </div>
                     </div>
                 </div>
+                <!-- End of registeration -->
+
+                <!-- Table of Users -->
+                <table class="table mt-5">
+                    <thead>
+                        <tr class="table-dark">
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>User Type</td>
+                            <td>delete</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr valign='middle'>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$user->type}}</td>
+                                <td>
+                                   <form action={{route('user.destroy', $user->id)}} method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"> Delete</button>
+                                   </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
             </main>
         </div>
     </body>
