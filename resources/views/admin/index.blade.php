@@ -15,6 +15,7 @@
             <!-- Page Content -->
             <main>
                <h1>You are in the admin page</h1>
+               <p>Hello sir</p>
             </main>
         </div>
     </body>
