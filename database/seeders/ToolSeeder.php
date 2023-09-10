@@ -58,7 +58,7 @@ class ToolSeeder extends Seeder
             ],
             [
                 'name' => 'Stabilisateur Mobile',
-                'image' => 'tool8.png',
+                'image' => 'tool8.jpg',
                 'etat' => true,
                 'stock' => 1,
             ],

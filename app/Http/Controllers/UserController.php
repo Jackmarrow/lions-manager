@@ -10,6 +10,11 @@ class UserController extends Controller
 {
     public function index(){
         $users = User::all();
-        return view('user.index', compact('users'));
+
+        if(auth()->user()->password_update == 1){
+            return view('user.index', compact('users'));
+        } else{
+            return view('reset-password');
+        }
     }
 }

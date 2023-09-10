@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StudioPhoto extends Model
+class Studio extends Model
 {
     use HasFactory;
-
-    use HasFactory;
     protected $fillable = [
-        "photo",
-        "studio_id",
+        "name"
     ];
 
-    public function studio(){
-        return $this->belongsTo(Studio::class);
+    public function studio_photos(){
+        return $this->hasMany(StudioPhoto::class);
     }
 }

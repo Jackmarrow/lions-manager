@@ -16,18 +16,23 @@
                         {{ __('Dashboard') }}
                     </x-nav-link> --}}
                     @role('admin')
-                    <x-nav-link :href="route('admin_register.index')" :active="request()->routeIs('admin_register.index')">
+                    <x-nav-link class="text-decoration-none" :href="route('admin_register.index')" :active="request()->routeIs('admin_register.index')">
                         {{ __('Register') }}
                     </x-nav-link>
                     @endrole
                     @role('admin')
-                    <x-nav-link :href="route('tools.index')" :active="request()->routeIs('tools.index')">
+                    <x-nav-link class="text-decoration-none" :href="route('tools.index')" :active="request()->routeIs('tools.index')">
                         {{ __('Tools') }}
                     </x-nav-link>
                     @endrole
                     @role('admin')
-                    <x-nav-link :href="route('classe.index')" :active="request()->routeIs('classe.index')">
-                        {{ __('Classe') }}
+                    <x-nav-link class="text-decoration-none" :href="route('classe.index')" :active="request()->routeIs('classe.index')">
+                        {{ __('Classes') }}
+                    </x-nav-link>
+                    @endrole
+                    @role('admin')
+                    <x-nav-link class="text-decoration-none" :href="route('studio.index')" :active="request()->routeIs('studio.index')">
+                        {{ __('Studios') }}
                     </x-nav-link>
                     @endrole
                 </div>
