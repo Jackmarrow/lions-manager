@@ -16,11 +16,10 @@
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main>
+            <main class="p-4">
                 {{-- CREATE --}}
                 <div class=" container w-75">
                     <h3 class=" text-center bg-warning  mt-3 mb-2 w-100">LIST TOOLS</h3>
-
                 </div>
 
 
@@ -97,7 +96,7 @@
                                 <td>
                                     <a href="tool/{{ $tool->id }}"
                                         class="btn btn btn-{{ $tool->etat ? 'success' : 'danger' }} w-50">
-                                        {{ $tool->etat ? 'true' : 'false' }}
+                                        {{ $tool->etat ? 'Bonne' : 'Mauvaise' }}
                                     </a>
                                 </td>
                                 <td class="fs-5">{{ $tool->stock }}</td>

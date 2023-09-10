@@ -25,6 +25,11 @@
                         {{ __('Tools') }}
                     </x-nav-link>
                     @endrole
+                    @role('admin')
+                    <x-nav-link :href="route('classe.index')" :active="request()->routeIs('classe.index')">
+                        {{ __('Classe') }}
+                    </x-nav-link>
+                    @endrole
                 </div>
             </div>
 

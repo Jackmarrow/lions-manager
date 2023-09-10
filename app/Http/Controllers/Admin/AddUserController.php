@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Mail\DemoMail;
 use App\Models\User;
 use App\Models\UserRole;
@@ -55,11 +56,6 @@ class AddUserController extends Controller
 
         // If no role has been selected
         if ($roles == null) {
-            $userData = [
-                'role_id' => 5,
-                'user_id' => $userId,
-            ];
-            UserRole::create($userData);
             $user->assignRole('none');
         }
 
@@ -67,11 +63,6 @@ class AddUserController extends Controller
         else {
             // Loop through all selected role
             foreach ($roles as $role) {
-                $userData = [
-                    'role_id' => $role,
-                    'user_id' => $userId,
-                ];
-                UserRole::create($userData);
                 // assign roles
                 $user->assignRole($role);
             }

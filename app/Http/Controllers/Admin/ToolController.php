@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Tool;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class ToolController extends Controller
             'stock' => ["required", "integer"],
         ]);
         $imageName = date("His") . $request->file("image")->getClientOriginalName();
-        $request->file("image")->storeAs('public/images', $imageName);
+        $request->file("image")->storeAs('public/images/tools/', $imageName);
         $data = [
             'name' => $request->name,
             'image' => $imageName,
@@ -55,7 +56,7 @@ class ToolController extends Controller
     public function destroy(Tool $tool)
     {
         $tool->delete();
-        return Redirect()->back();
+        return redirect()->back();
     }
 
     //* ETAT TOOL

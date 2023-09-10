@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AddUserController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\Admin\AddUserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ClasseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\ToolController;
+use App\Http\Controllers\Admin\ToolController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Route;
@@ -56,14 +56,16 @@ Route::delete('/admin/register/{user}/delete', [AddUserController::class, 'destr
 // User Route Page
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
+// Classe Route Page
+Route::get('/admin/classe', [ClasseController::class, 'index'])->name('classe.index');
 
-// Tool Route Page
+// Tool Route Pages
 Route::get('/admin/tools' , [ToolController::class , "index"])->name("tools.index");
 Route::get('/admin/tool/{tool}' , [ToolController::class , "edittool"]);
 Route::get('/admin/tool/create' , [ToolController::class , "create"])->name("tools.create");
 Route::get('/admin/tool/edit/{tool}' , [ToolController::class , "edit"])->name("tools.edit");
 
-// Tools Route Function
+// Tools Route Functions
 Route::post('/admin/tool/store' , [ToolController::class , "store"])->name("tools.store");
 Route::put('/admin/tool/update/{tool}' , [ToolController::class , "update"])->name("tools.update");
 Route::delete('/admin/tool/{tool}/destroy' , [ToolController::class , "destroy"])->name("tools.destroy");
