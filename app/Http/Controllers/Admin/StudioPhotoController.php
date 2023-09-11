@@ -26,7 +26,7 @@ class StudioPhotoController extends Controller
             $photoNames[] = $photoname;
         }
 
-        
+
         foreach ($photoNames as $name) {
             $data = [
                 'photo' => $name,
@@ -42,17 +42,17 @@ class StudioPhotoController extends Controller
         request()->validate([
             "photo" => "image|mimes:jpeg,png,webp,jpg,gif,avif,svg|max:2048",
         ]);
-        if ($request->file('studioPhoto') != null) {
-            // delete image from storage
+        if ($request->file('photo')) {
+            // Delete the old photo
             Storage::disk("public")->delete('/images/studioPhoto/' . $studiophoto->photo);
-            $studiophoto->delete();
-            // update photo
-            $request->file("studioPhoto")->storePublicly('/images/studioPhoto/', 'public');
-            $data = [
-                "photo" => $request->file("studioPhoto")->hashName(),
-            ];
 
-            $studiophoto->update($data);
+            //
+            $request->file("photo")->storePublicly('/images/studioPhoto/', 'public');
+
+            // Update the photo field in the database
+            $studiophoto->update([
+                "photo" => $request->file("photo")->hashName(),
+            ]);
         } else {
             $studiophoto->save();
         }

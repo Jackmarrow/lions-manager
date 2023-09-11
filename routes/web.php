@@ -9,6 +9,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\Admin\ToolController;
 use App\Http\Controllers\Admin\StudioController;
 use App\Http\Controllers\Admin\StudioPhotoController;
+use App\Http\Controllers\ResvClasseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Route;
@@ -33,13 +34,9 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/login');
 
 // Route Dashboard
-Route::get('/dashboard', function () {
-    if(auth()->user()->role == 'admin'){
-        return view('admin.index');
-    } else{
-        return view('user.index');
-    }
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//         return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 // Profile Authentification
@@ -80,10 +77,12 @@ Route::middleware('auth', 'role:admin')->group(function () {
 //     Route::patch('/user/profile', [ProfileController::class, 'update'])->name('user_profile.update');
 // });
 
-Route::middleware('auth','checkPasswordReset')->group(function(){
+Route::middleware('auth','role:gestion classe','checkPasswordReset')->group(function(){
     // User Route Page
+    Route::get('/user/class_calendar', [ResvClasseController::class, 'index'])->name('class_calendar.index');
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
 });
+
 // Reset password page
 Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password.index');
 Route::put('/update_password', [ResetPasswordController::class, 'update'])->name('reset-password.update');
@@ -119,7 +118,7 @@ Route::delete('/admin/classes/{classe}/photos/{photo}', [ClassePhotoController::
     
 
 //^page studios___________________________________________________________________________________________
-Route::get('/admin/studio' , [StudioController::class , "index"])->name("studio.index");
+Route::get('/admin/studios' , [StudioController::class , "index"])->name("studio.index");
 
 //^ Function DB studios______________________________________________________________________________
 Route::post('/admin/studio/store' , [StudioController::class , "store"])->name("studios.store");

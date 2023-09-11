@@ -15,11 +15,6 @@
             <!-- Page Content -->
             <main>
                <h1>You are in the user page</h1>
-               {{-- @foreach ($users as $user)
-                 @foreach ($user->roles as $role)
-                   <p>{{$role}}</p>  
-                 @endforeach  
-               @endforeach --}}
                @role('gestion studio')
                 <p>Yes i'm gestion studio</p>
                @endrole

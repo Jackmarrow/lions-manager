@@ -56,9 +56,13 @@
                                             required>
                                     </div>
                                     <div class="mb-3 ">
-                                        <label for="name" class="form-label">Etat</label>
-                                        <input type="text" name="etat" id="etat" class="form-control"
-                                            required>
+                                        <label for="name" class="form-label">State</label>
+                                        <select name="etat" id="etat" class="form-control" required>
+                                            <option value="1">Good</option>
+                                            <option value="0">Bad</option>
+                                        </select>
+                                        {{-- <input type="text" name="etat" id="etat" class="form-control"
+                                            required> --}}
                                     </div>
 
                                     <div class="mb-3">
@@ -90,7 +94,7 @@
                     <tbody>
                         @foreach ($tools as $tool)
                             <tr valign="middle">
-                                <td><img src={{ asset('/storage/images/tools/'.$tool->image) }} alt=""
+                                <td><img src={{ asset('/storage/images/tools/' . $tool->image) }} alt=""
                                         width="50" height="50"></td>
                                 <td class="w-25">{{ $tool->name }}</td>
                                 <td>
@@ -102,8 +106,8 @@
                                 <td class="fs-5">{{ $tool->stock }}</td>
                                 <td>
                                     <!-- Button trigger modal UPDATE -->
-                                    <button type="button" class="btn  btn-info                    w-50 text-white "
-                                        data-bs-toggle="modal" data-bs-target="#edittool{{ $tool->id }}">
+                                    <button type="button" class="btn  btn-info w-50 text-white " data-bs-toggle="modal"
+                                        data-bs-target="#edittool{{ $tool->id }}">
                                         edit
                                     </button>
 
@@ -131,10 +135,16 @@
                                                         </div>
 
                                                         <div class="mb-3 ">
-                                                            <label for="etat" class="form-label">Etat</label>
-                                                            <input class="form-control" type="text" name="etat"
+                                                            <label for="etat" class="form-label">State</label>
+                                                            <label for="name" class="form-label">State</label>
+                                                            <select name="etat" id="etat"
+                                                                class="form-control" required>
+                                                                <option value="1">Good</option>
+                                                                <option value="0">Bad</option>
+                                                            </select>
+                                                            {{-- <input class="form-control" type="text" name="etat"
                                                                 id="etat" value={{ old('etat', $tool->etat) }}
-                                                                required>
+                                                                required> --}}
                                                         </div>
 
                                                         <div class="mb-3 ">
