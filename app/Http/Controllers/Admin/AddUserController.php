@@ -41,8 +41,8 @@ class AddUserController extends Controller
 
         Mail::to('antonatic345@gmail.com')->send(new DemoMail($mailData));
 
-        // Retreive the last user id
-        $userId = User::latest()->first()->id;
+        // // Retreive the last user id
+        // $userId = User::latest()->first()->id;
         // Retreive all the selected role
         $roles = $request->input('role');
 

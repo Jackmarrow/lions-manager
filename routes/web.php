@@ -29,22 +29,28 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-// Redirect to login
-// Route::redirect('/', '/login');
+//Redirect to login
+Route::redirect('/', '/login');
 
 // Route Dashboard
 Route::get('/dashboard', function () {
-    return view('/dashboard');
+    if(auth()->user()->role == 'admin'){
+        return view('admin.index');
+    } else{
+        return view('user.index');
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-
-// Auth middleware
-Route::middleware('auth', 'role:admin')->group(function () {
+// Profile Authentification
+Route::middleware('auth', 'checkPasswordReset')->group(function(){
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+// Auth middleware for admin
+Route::middleware('auth', 'role:admin')->group(function () {
     // Classe Route Page
     Route::get('/admin/classe', [ClasseController::class, 'index'])->name('classe.index');
 
@@ -67,62 +73,64 @@ Route::middleware('auth', 'role:admin')->group(function () {
 });
 
 
-// User Route Page
-Route::get('/user', [UserController::class, 'index'])->name('user.index');
+// Auth middleware for user
+
+// Route::middleware('auth','role:user')->group(function(){
+//     Route::get('/user/profile', [ProfileController::class, 'edit'])->name('user_profile.edit');
+//     Route::patch('/user/profile', [ProfileController::class, 'update'])->name('user_profile.update');
+// });
+
+Route::middleware('auth','checkPasswordReset')->group(function(){
+    // User Route Page
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+});
 // Reset password page
 Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password.index');
 Route::put('/update_password', [ResetPasswordController::class, 'update'])->name('reset-password.update');
 
 // for classes
-Route::get('/', [ClasseController::class, 'index'])->name('home.index');
-Route::get('/classes', [ClasseController::class, 'index'])->name('classe.index');
-Route::post('/classes/store', [ClasseController::class, 'store'])->name('classe.store');
-Route::get('/classes/show/{id}', [ClasseController::class, 'show'])->name('classes.show');
-Route::put('/classes/{id}', [ClasseController::class, 'update'])->name('classe.update');
-Route::delete('/classes/{id}', [ClasseController::class, 'destroy'])->name('classe.destroy');
-Route::put('/classes/{id}', [ClasseController::class, 'update'])->name('classe.update');
+// Route::get('/', [ClasseController::class, 'index'])->name('home.index');
+Route::get('/admin/classes', [ClasseController::class, 'index'])->name('classe.index');
+Route::post('/admin/classes/store', [ClasseController::class, 'store'])->name('classe.store');
+Route::get('/admin/classes/show/{id}', [ClasseController::class, 'show'])->name('classes.show');
+Route::put('/admin/classes/{id}', [ClasseController::class, 'update'])->name('classe.update');
+Route::delete('/admin/classes/{id}', [ClasseController::class, 'destroy'])->name('classe.destroy');
+Route::put('/admin/classes/{id}', [ClasseController::class, 'update'])->name('classe.update');
 
 // PhotoController for image uploads
-Route::post('/classes/{id}/upload-images', [ClassePhotoController::class, 'uploadImages'])->name('upload.images');
+Route::post('/admin/classes/{id}/upload-images', [ClassePhotoController::class, 'uploadImages'])->name('upload.images');
 // for upload images
-Route::post('/classes/upload/{id}', [ClassePhotoController::class, 'upload'])->name('classe.upload');
+Route::post('/admin/classes/upload/{id}', [ClassePhotoController::class, 'upload'])->name('classe.upload');
 //for image modal delete 
-Route::delete('/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'destroy'])
+Route::delete('/admin/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'destroy'])
     ->name('classe.destroy.photo');
     //for image modal update
-Route::delete('/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'update'])
+Route::delete('/admin/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'update'])
 ->name('classe.update.photo');
 
 // Route for deleting a photo in a class
-Route::delete('/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'destroy'])
+Route::delete('/admin/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'destroy'])
     ->name('classe.destroy.photo');
 // route for editing a photo in a class
-    Route::put('/classes/{classe}/photos/{photo}/update', [ClassePhotoController::class, 'update'])
+    Route::put('/admin/classes/{classe}/photos/{photo}/update', [ClassePhotoController::class, 'update'])
  ->name('classe.update.photo');
 
 
     
 
 //^page studios___________________________________________________________________________________________
-Route::get('/studio' , [StudioController::class , "index"])->name("studio.index");
+Route::get('/admin/studio' , [StudioController::class , "index"])->name("studio.index");
 
 //^ Function DB studios______________________________________________________________________________
-Route::post('/studio/store' , [StudioController::class , "store"])->name("studios.store");
-Route::put('/studio/{studio}/update' , [StudioController::class , "update"])->name("studios.update");
-Route::delete('/studio/{studio}/destroy' , [StudioController::class , "destroy"])->name("studios.destroy");
+Route::post('/admin/studio/store' , [StudioController::class , "store"])->name("studios.store");
+Route::put('/admin/studio/{studio}/update' , [StudioController::class , "update"])->name("studios.update");
+Route::delete('/admin/studio/{studio}/destroy' , [StudioController::class , "destroy"])->name("studios.destroy");
 
 //
 
 //!studioPhoto
-Route::post('/studio/store/photo/{studio}' , [StudioPhotoController::class , "store"])->name("studiophoto.store");
-Route::put('/studio/photo/{studiophoto}/update' , [StudioPhotoController::class , "update"])->name("studiophoto.update");
-Route::delete('/studio/photo/{studiophoto}/destroy' , [StudioPhotoController::class , "destroy"])->name("studiophoto.destroy");
-
-
-// Route::middleware(['auth', 'checkPasswordReset'])->group(function () {
-//     // Your protected routes go here
-//     // User Route Page
-//     Route::get('/user', [UserController::class, 'index'])->name('user.index');
-// });
+Route::post('/admin/studio/store/photo/{studio}' , [StudioPhotoController::class , "store"])->name("studiophoto.store");
+Route::put('/admin/studio/photo/{studiophoto}/update' , [StudioPhotoController::class , "update"])->name("studiophoto.update");
+Route::delete('/admin/studio/photo/{studiophoto}/destroy' , [StudioPhotoController::class , "destroy"])->name("studiophoto.destroy");
 
 require __DIR__ . '/auth.php';

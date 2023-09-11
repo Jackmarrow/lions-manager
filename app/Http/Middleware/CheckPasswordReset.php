@@ -20,12 +20,13 @@ class CheckPasswordReset
         // $user = Auth::id();
         // dd(auth()->user());
 
-        if(auth()->user()->password_reset != 0){
+        if(auth()->user()->password_update == 1){
             return $next($request);
         }
         
         // dd('hello world');
-        
-        return redirect('/reset-password');
+        else{
+            return redirect('/reset-password');
+        }
     }
 }

@@ -81,7 +81,7 @@
                         <tr>
                             <th scope="col">IMAGE</th>
                             <th scope="col">NAME</th>
-                            <th scope="col">ETAT</th>
+                            <th scope="col">STATE</th>
                             <th scope="col">STOCK</th>
                             <th scope="col">UPDATE</th>
                             <th scope="col">DELETE</th>
@@ -96,7 +96,7 @@
                                 <td>
                                     <a href="tool/{{ $tool->id }}"
                                         class="btn btn btn-{{ $tool->etat ? 'success' : 'danger' }} w-50">
-                                        {{ $tool->etat ? 'Bonne' : 'Mauvaise' }}
+                                        {{ $tool->etat ? 'Good' : 'Bad' }}
                                     </a>
                                 </td>
                                 <td class="fs-5">{{ $tool->stock }}</td>

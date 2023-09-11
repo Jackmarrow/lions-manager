@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tool;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ToolController extends Controller
 {
@@ -55,8 +56,11 @@ class ToolController extends Controller
     // *delete
     public function destroy(Tool $tool)
     {
+       if($tool){
         $tool->delete();
+        Storage::delete('public/images/tools/'.$tool->image);
         return redirect()->back();
+       }
     }
 
     //* ETAT TOOL
