@@ -68,7 +68,7 @@
                     header: { //An object that defines the navigation buttons and titles for the calendar's header.
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,agendaWeek,agendaDay,listWeek' // Include listWeek view
+                        right: 'month,agendaWeek,agendaDay' // Include listWeek view
                     },
                     views: {
                         agendaDay: {
@@ -80,7 +80,7 @@
                             maxTime: '19:00:00' // End time (6:00 PM)
                         }
                     },
-                    defaultView: 'agendaDay', // Default view when the calendar loads
+                    defaultView: 'agendaWeek', // Default view when the calendar loads
                     defaultDate: lastEventDate, // Set the default date to the date of last event has been added 
                     editable: false, // Determines if events can be dragged and resized.
                     events: resv_classes, //our table after passing it from Laravel backend to our frontend JavaScript code
@@ -121,6 +121,7 @@
                             // Apply a different style to events added by the same user
                             element.css('background-color', 'green');
                             element.css('border-color', 'green');
+                            element.css('color', 'white');
                         } else {
                             // change the color of the clicked event to red (click to cancel reservation)
                             element.on('click', function() {
@@ -196,7 +197,7 @@
                                 // the whole interactions works only after refreshing the page ! (something between ajax & laravel)
                                 if (canAddEvent) {
                                     $.ajax({
-                                        url: SITEURL + "/fullcalenderAjax",
+                                        url: SITEURL + "/fullcalenderAjaxAdmin",
                                         data: {
                                             title: title,
                                             start: start,
@@ -222,7 +223,6 @@
                                             location.reload();
                                         },
                                     });
-                                    console.log(user_id);
                                 } else {
                                     alert("Classe Already reserved at this Time");
                                     calendar.fullCalendar('unselect');
@@ -245,7 +245,7 @@
                             if (deleteMsg) {
                                 $.ajax({
                                     type: "POST",
-                                    url: SITEURL + '/fullcalenderAjax',
+                                    url: SITEURL + '/fullcalenderAjaxAdmin',
                                     data: {
                                         id: event.id,
                                         type: 'delete'

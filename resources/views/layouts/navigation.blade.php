@@ -27,15 +27,15 @@
                         {{ __('Studios') }}
                     </x-nav-link>
                     <x-nav-link class="text-decoration-none" :href="route('calendarClasse.showcal',1)" :active="request()->routeIs('calendarClasse.showcal',1)">
-                        {{ __('Classes Calendar') }}
+                        {{ __('Admin Classes Calendar') }}
                     </x-nav-link>
                     <x-nav-link class="text-decoration-none" :href="route('history.index')" :active="request()->routeIs('history.index')">
                         {{ __('Reservation History') }}
                     </x-nav-link>
                     @endrole
                     @role('gestion classe')
-                    <x-nav-link class="text-decoration-none" :href="route('class_calendar.index')" :active="request()->routeIs('class_calendar.index')">
-                        {{ __('Classes Calendar') }}
+                    <x-nav-link class="text-decoration-none" :href="route('userCalendar.showcal',1)" :active="request()->routeIs('userCalendar.showcal',1)">
+                        {{ __('User Classes Calendar') }}
                     </x-nav-link>
                     @endrole
                     @role('gestion studio')

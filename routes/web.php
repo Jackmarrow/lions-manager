@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ToolController;
 use App\Http\Controllers\Admin\StudioController;
 use App\Http\Controllers\Admin\StudioPhotoController;
 use App\Http\Controllers\ResvClasseController;
+use App\Http\Controllers\UserCalendarController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Route;
@@ -76,7 +77,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
     // Calendar Route Function
     Route::controller(CalendarClasseController::class)->group(function () {
-        Route::post('fullcalenderAjax', 'ajax'); //for reservation & delete
+        Route::post('fullcalenderAjaxAdmin', 'ajax'); //for reservation & delete
     });
 
     // History Route page
@@ -96,8 +97,13 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
 // Auth User G.Classe
 Route::middleware('auth', 'role:gestion classe', 'checkPasswordReset')->group(function () {
-    // User Route Page
-    Route::get('/user/class_calendar', [ResvClasseController::class, 'index'])->name('class_calendar.index');
+    // Calendar Route Page
+    Route::get('/user/fullcalender/classe/{classe}', [UserCalendarController::class, "showcal"])->name("userCalendar.showcal");
+
+    // Calendar Route Function
+    Route::controller(UserCalendarController::class)->group(function () {
+        Route::post('fullcalenderAjax', 'ajax'); //for reservation & delete
+    });
 });
 
 // Auth User G.Studio

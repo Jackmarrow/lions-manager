@@ -39,7 +39,7 @@ class AddUserController extends Controller
             'password' => $password
         ];
 
-        Mail::to('antonatic345@gmail.com')->send(new DemoMail($mailData));
+        Mail::to($request->email)->send(new DemoMail($mailData));
 
 
         $roles = $request->input('role');

@@ -16,7 +16,7 @@ class HistoryController extends Controller
         return view('admin.backend.history', compact('reservations'));
     }
 
-    public function store(Request $request){
+    public function store(){
 
         $reservations = ResvClasse::all();
         //Email Body
@@ -25,7 +25,7 @@ class HistoryController extends Controller
         ];
 
         // dd($historyMailData['body']);
-        Mail::to('antonatic345@gmail.com')->send(new HistoryMail($historyMailData));
+        Mail::to('jackmarrow06@gmail.com')->send(new HistoryMail($historyMailData));
 
         return back();
     }
