@@ -81,21 +81,71 @@
                             <td>Name</td>
                             <td>Email</td>
                             <td>User Type</td>
-                            <td>delete</td>
+                            <td>Role</td>
+                            <td>Delete</td>
+                            <td>Update</td>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
                             <tr valign='middle'>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->type}}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->type }}</td>
                                 <td>
-                                   <form action={{route('user.destroy', $user->id)}} method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"> Delete</button>
-                                   </form>
+                                    @foreach ($user->roles as $role)
+                                        {{$role->name}}
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <form action={{ route('user.destroy', $user->id) }} method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"> Delete</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#updateUserModal{{$user->id}}">
+                                        Update
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="updateUserModal{{$user->id}}" tabindex="-1"
+                                        aria-labelledby="updateUserModal{{$user->id}}Label" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update User Info</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action={{route('user.update',$user->id)}} method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="mb-3">
+                                                            <label for="name" class="form-label">Name</label>
+                                                            <input type="text" name="name" id="name" class="form-control" value={{$user->name}}>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="email" class="form-label">Email</label>
+                                                            <input type="text" name="email" id="email" class="form-control" value={{$user->email}}>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="type" class="form-label">User Type</label>
+                                                            <select name="type" id="type" class="form-control" selected={{$user->type}}>
+                                                                <option value="user interne">user interne</option>
+                                                                <option value="user externe">user externe</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Update User</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

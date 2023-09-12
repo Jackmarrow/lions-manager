@@ -41,9 +41,7 @@ class AddUserController extends Controller
 
         Mail::to('antonatic345@gmail.com')->send(new DemoMail($mailData));
 
-        // // Retreive the last user id
-        // $userId = User::latest()->first()->id;
-        // Retreive all the selected role
+
         $roles = $request->input('role');
 
         // Create User
@@ -69,10 +67,28 @@ class AddUserController extends Controller
         }
 
         // 
-
         event(new Registered($user));
 
         return redirect()->back();
+    }
+
+
+    public function update(Request $request, User $user){
+        request()->validate([
+            'name'=>['required'],
+            'email'=>['required'],
+            'type'=>['required'],
+        ]);
+
+        // $user = auth()->user;
+
+        $user->update([
+            'name'=> $request->name,
+            'email'=> $request->email,
+            'type'=> $request->type,
+        ]);
+
+        return back();
     }
 
     public function destroy(User $user){

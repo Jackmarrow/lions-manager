@@ -15,7 +15,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @role('admin')
                     <x-nav-link class="text-decoration-none" :href="route('admin_register.index')" :active="request()->routeIs('admin_register.index')">
-                        {{ __('Register') }}
+                        {{ __('Manage User') }}
                     </x-nav-link>
                     <x-nav-link class="text-decoration-none" :href="route('tools.index')" :active="request()->routeIs('tools.index')">
                         {{ __('Tools') }}
@@ -26,10 +26,21 @@
                     <x-nav-link class="text-decoration-none" :href="route('studio.index')" :active="request()->routeIs('studio.index')">
                         {{ __('Studios') }}
                     </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('calendarClasse.showcal',1)" :active="request()->routeIs('calendarClasse.showcal',1)">
+                        {{ __('Classes Calendar') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('history.index')" :active="request()->routeIs('history.index')">
+                        {{ __('Reservation History') }}
+                    </x-nav-link>
                     @endrole
                     @role('gestion classe')
                     <x-nav-link class="text-decoration-none" :href="route('class_calendar.index')" :active="request()->routeIs('class_calendar.index')">
                         {{ __('Classes Calendar') }}
+                    </x-nav-link>
+                    @endrole
+                    @role('gestion studio')
+                    <x-nav-link class="text-decoration-none" :href="route('studio_calendar.index')" :active="request()->routeIs('studio_calendar.index')">
+                        {{ __('Studios Calendar') }}
                     </x-nav-link>
                     @endrole
                 </div>

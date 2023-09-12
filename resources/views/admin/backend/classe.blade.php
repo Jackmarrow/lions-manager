@@ -17,7 +17,7 @@
 
             <!-- Page Content -->
             <main class="p-4">
-                <h1 class="text-center">Classes</h1>
+                {{-- <h1 class="text-center">Classes</h1>
 
                 <form action="{{ route('classe.store') }}" method="POST">
                     @csrf
@@ -29,9 +29,51 @@
                             <button class="btn btn-primary btn-block" type="submit">Add new class</button>
                         </div>
                     </div>
-                </form>
+                </form> --}}
+                {{-- CREATE --}}
+                <div class=" container w-75">
+                    <h3 class=" text-center bg-warning  mt-3 mb-2 w-100">Classes</h3>
+                </div>
 
-                <table class="table table-striped">
+
+                <!-- Button trigger modal -->
+                <div class=" container w-75 text-center">
+
+                    <button type="button" class="btn btn-dark w-100 text-center" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        + Classe
+                    </button>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Create</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{-- form --}}
+                                <form action={{route('classe.store')}} method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="name">name</label>
+                                        <input type="text" name="name" id="name" class="form-control"
+                                            required>
+                                    </div>
+                                    <div class="modal-footer mt-5">
+                                        <button class="btn btn-success mt-1" type="submit">Create</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table w-75 container mt-3">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -47,7 +89,8 @@
                                 <td>{{ $classe->name }}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#photoModal{{ $classe->id }}">View Photos</button>
+                                        data-bs-target="#photoModal{{ $classe->id }}">View
+                                        Photos</button>
 
                                     <!-- Photo Modal -->
                                     <div class="modal fade" id="photoModal{{ $classe->id }}" tabindex="-1"
@@ -56,7 +99,8 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5"
-                                                        id="photoModalLabel{{ $classe->id }}">Photos</h1>
+                                                        id="photoModalLabel{{ $classe->id }}">Photos
+                                                    </h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -145,7 +189,8 @@
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#uploadModal{{ $classe->id }}">Upload Images</button>
+                                        data-bs-target="#uploadModal{{ $classe->id }}">Upload
+                                        Images</button>
                                 </td>
                             </tr>
                             <!-- Edit Modal -->
@@ -170,7 +215,8 @@
                                                     <input type="text" name="edit_name" id="edit_name"
                                                         value="{{ $classe->name }}" required>
                                                 </div>
-                                                <button class="btn btn-info" type="submit">Update Class</button>
+                                                <button class="btn btn-info" type="submit">Update
+                                                    Class</button>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
@@ -199,7 +245,8 @@
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="mb-3">
-                                                    <label for="images" class="form-label">Select Images (JPG, PNG,
+                                                    <label for="images" class="form-label">Select
+                                                        Images (JPG, PNG,
                                                         GIF, WebP, max 2048KB)</label>
                                                     <input type="file" name="images[]" id="images"
                                                         class="form-control"

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('resv_classes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("classe_id")->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->boolean("resv_etat");
             $table->timestamps();
         });
     }

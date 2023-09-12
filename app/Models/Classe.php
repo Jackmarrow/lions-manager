@@ -15,4 +15,10 @@ class Classe extends Model
     {
         return $this->hasMany(ClassePhoto::class);
     }
+
+    //Resv_classes & classes => One to Many 
+    public function reservations()
+    {
+        return $this->hasMany(ResvClasse::class);
+    }
 }

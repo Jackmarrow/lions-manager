@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CalendarClasseController;
 use App\Http\Controllers\Admin\ClasseController;
 use App\Http\Controllers\Admin\ClassePhotoController;
+use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\Admin\ToolController;
@@ -40,7 +42,7 @@ Route::redirect('/', '/login');
 
 
 // Profile Authentification
-Route::middleware('auth', 'checkPasswordReset')->group(function(){
+Route::middleware('auth', 'checkPasswordReset')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -56,6 +58,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/admin/register', [AddUserController::class, 'index'])->name('admin_register.index');
     Route::post('/addmin/register/add_user', [AddUserController::class, 'store'])->name('add_user.store');
     Route::delete('/admin/register/{user}/delete', [AddUserController::class, 'destroy'])->name('user.destroy');
+    Route::put('/admin/register/{user}/update', [AddUserController::class, 'update'])->name('user.update');
 
     // Tool Route Pages
     Route::get('/admin/tools', [ToolController::class, "index"])->name("tools.index");
@@ -67,6 +70,20 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::post('/admin/tool/store', [ToolController::class, "store"])->name("tools.store");
     Route::put('/admin/tool/update/{tool}', [ToolController::class, "update"])->name("tools.update");
     Route::delete('/admin/tool/{tool}/destroy', [ToolController::class, "destroy"])->name("tools.destroy");
+
+    // Calendar Route Page
+    Route::get('/admin/fullcalender/classe/{classe}', [CalendarClasseController::class, "showcal"])->name("calendarClasse.showcal");
+
+    // Calendar Route Function
+    Route::controller(CalendarClasseController::class)->group(function () {
+        Route::post('fullcalenderAjax', 'ajax'); //for reservation & delete
+    });
+
+    // History Route page
+    Route::get('/admin/history', [HistoryController::class, 'index'])->name('history.index');
+
+    // History Route Functions
+    Route::post('/admin/history/send_history', [HistoryController::class, 'store'])->name('history.store');
 });
 
 
@@ -77,10 +94,16 @@ Route::middleware('auth', 'role:admin')->group(function () {
 //     Route::patch('/user/profile', [ProfileController::class, 'update'])->name('user_profile.update');
 // });
 
-Route::middleware('auth','role:gestion classe','checkPasswordReset')->group(function(){
+// Auth User G.Classe
+Route::middleware('auth', 'role:gestion classe', 'checkPasswordReset')->group(function () {
     // User Route Page
     Route::get('/user/class_calendar', [ResvClasseController::class, 'index'])->name('class_calendar.index');
-    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+});
+
+// Auth User G.Studio
+Route::middleware('auth', 'role:gestion studio', 'checkPasswordReset')->group(function () {
+    // User Route Page
+    Route::get('/user/studio_calendar', [ResvClasseController::class, 'index'])->name('studio_calendar.index');
 });
 
 // Reset password page
@@ -103,33 +126,33 @@ Route::post('/admin/classes/upload/{id}', [ClassePhotoController::class, 'upload
 //for image modal delete 
 Route::delete('/admin/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'destroy'])
     ->name('classe.destroy.photo');
-    //for image modal update
+//for image modal update
 Route::delete('/admin/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'update'])
-->name('classe.update.photo');
+    ->name('classe.update.photo');
 
 // Route for deleting a photo in a class
 Route::delete('/admin/classes/{classe}/photos/{photo}', [ClassePhotoController::class, 'destroy'])
     ->name('classe.destroy.photo');
 // route for editing a photo in a class
-    Route::put('/admin/classes/{classe}/photos/{photo}/update', [ClassePhotoController::class, 'update'])
- ->name('classe.update.photo');
+Route::put('/admin/classes/{classe}/photos/{photo}/update', [ClassePhotoController::class, 'update'])
+    ->name('classe.update.photo');
 
 
-    
+
 
 //^page studios___________________________________________________________________________________________
-Route::get('/admin/studios' , [StudioController::class , "index"])->name("studio.index");
+Route::get('/admin/studios', [StudioController::class, "index"])->name("studio.index");
 
 //^ Function DB studios______________________________________________________________________________
-Route::post('/admin/studio/store' , [StudioController::class , "store"])->name("studios.store");
-Route::put('/admin/studio/{studio}/update' , [StudioController::class , "update"])->name("studios.update");
-Route::delete('/admin/studio/{studio}/destroy' , [StudioController::class , "destroy"])->name("studios.destroy");
+Route::post('/admin/studio/store', [StudioController::class, "store"])->name("studios.store");
+Route::put('/admin/studio/{studio}/update', [StudioController::class, "update"])->name("studios.update");
+Route::delete('/admin/studio/{studio}/destroy', [StudioController::class, "destroy"])->name("studios.destroy");
 
 //
 
 //!studioPhoto
-Route::post('/admin/studio/store/photo/{studio}' , [StudioPhotoController::class , "store"])->name("studiophoto.store");
-Route::put('/admin/studio/photo/{studiophoto}/update' , [StudioPhotoController::class , "update"])->name("studiophoto.update");
-Route::delete('/admin/studio/photo/{studiophoto}/destroy' , [StudioPhotoController::class , "destroy"])->name("studiophoto.destroy");
+Route::post('/admin/studio/store/photo/{studio}', [StudioPhotoController::class, "store"])->name("studiophoto.store");
+Route::put('/admin/studio/photo/{studiophoto}/update', [StudioPhotoController::class, "update"])->name("studiophoto.update");
+Route::delete('/admin/studio/photo/{studiophoto}/destroy', [StudioPhotoController::class, "destroy"])->name("studiophoto.destroy");
 
 require __DIR__ . '/auth.php';
