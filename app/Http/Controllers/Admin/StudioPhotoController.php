@@ -15,7 +15,7 @@ class StudioPhotoController extends Controller
     public function store(Request $request, Studio $studio)
     {
         Request()->validate([
-            'photo.*' => 'required|image|mimes:jpeg,png,webp,jpg,gif,avif,svg|max:2048',
+            'photo.*' => 'required|image|mimes:jpeg,png,webp,jpg,gif,avif,svg|min:0',
         ]);
         $studiophoto =  $request->file('photo');
         $photoNames = [];
@@ -40,11 +40,12 @@ class StudioPhotoController extends Controller
     public function update(Request $request, StudioPhoto $studiophoto)
     {
         request()->validate([
-            "photo" => "image|mimes:jpeg,png,webp,jpg,gif,avif,svg|max:2048",
+            "photo" => "image|mimes:jpeg,png,webp,jpg,gif,avif,svg|min:0",
         ]);
+
         if ($request->file('photo')) {
             // Delete the old photo
-            Storage::disk("public")->delete('/images/studioPhoto/' . $studiophoto->photo);
+            Storage::disk("public")->delete('/images/studioPhoto/'.$studiophoto->photo);
 
             //
             $request->file("photo")->storePublicly('/images/studioPhoto/', 'public');
@@ -62,7 +63,7 @@ class StudioPhotoController extends Controller
     //! Delete Photo
     public function destroy(StudioPhoto $studiophoto)
     {
-        Storage::disk("public")->delete('/images/studioPhoto/' . $studiophoto->photo);
+        Storage::disk("public")->delete('/images/studioPhoto/'.$studiophoto->photo);
         $studiophoto->delete();
         return redirect()->back();
     }

@@ -115,11 +115,11 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($classe->photos as $photo)
-                                                                <tr>
+                                                                <tr valign="middle">
                                                                     <td>
                                                                         <a href="{{ asset('/storage/images/classePhotos/' . $photo->name) }}"
                                                                             target="_blank">
-                                                                            <img src="{{ asset('/storage/images/classePhotos/' . $photo->name) }}"
+                                                                            <img width="400" src="{{ asset('/storage/images/classePhotos/' . $photo->name) }}"
                                                                                 alt="{{ $photo->name }}"
                                                                                 class="img-fluid mb-2" width="200">
                                                                         </a>
@@ -135,7 +135,7 @@
                                                                         </form>
 
                                                                     </td>
-                                                                    <td>
+                                                                    <td style="width: 300px">
                                                                         <!-- Form for updating the image -->
                                                                         <form
                                                                             action="{{ route('classe.update.photo', ['classe' => $classe->id, 'photo' => $photo->id]) }}"
@@ -144,9 +144,6 @@
                                                                             @csrf
                                                                             @method('PUT')
                                                                             <div class="mb-3">
-                                                                                <label for="update_image"
-                                                                                    class="form-label">Update
-                                                                                    Image</label>
                                                                                 <div class="input-group">
                                                                                     <input type="file"
                                                                                         name="update_image"
@@ -160,16 +157,11 @@
                                                                                 </div>
                                                                             </div>
                                                                         </form>
-
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
                                                     </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -210,18 +202,14 @@
                                                 method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <div>
-                                                    <label for="edit_name">Edit class name</label>
+                                                <div class="mb-3">
+                                                    <label for="edit_name" class="form-label">Edit class name:</label>
                                                     <input type="text" name="edit_name" id="edit_name"
-                                                        value="{{ $classe->name }}" required>
+                                                        value="{{ $classe->name }}" class="form-control" required>
                                                 </div>
                                                 <button class="btn btn-info" type="submit">Update
                                                     Class</button>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -255,10 +243,6 @@
                                                 </div>
                                                 <button class="btn btn-primary" type="submit">Upload</button>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>

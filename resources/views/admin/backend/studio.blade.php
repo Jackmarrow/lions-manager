@@ -119,8 +119,7 @@
                                                                     <td>
                                                                         <form
                                                                             action={{ route('studiophoto.destroy', $studiophoto->id) }}
-                                                                            method="POST"
-                                                                            enctype="multipart/form-data">
+                                                                            method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button class="btn btn-danger w-100"
@@ -186,7 +185,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit"
-                                                            class="btn btn-primary">Understood</button>
+                                                            class="btn btn-primary">Add Photos</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -17,7 +17,7 @@
 
             <!-- Page Content -->
             <main class="p-4">
-                <h1>You are gestion studio and this is your page</h1>
+                <h1>This page not yet available</h1>
             </main>
         </div>
     </body>

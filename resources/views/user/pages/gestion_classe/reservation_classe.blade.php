@@ -16,9 +16,6 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-
-
-
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
@@ -29,7 +26,7 @@
                 {{-- classe is a variable we get from the url of the page --}}
                 <h1 class="text-center py-3">Classe : <span class="text-primary">{{ $classe->name }}</span> </h1>
                 {{-- classes is our table  --}}
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center gap-3">
                     @foreach ($classes as $classex)
                         @if ($classe->name == $classex->name)
                             <a class="nav-link" href={{ route('userCalendar.showcal', $classex->id) }}> <button

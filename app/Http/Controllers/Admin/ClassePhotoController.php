@@ -15,7 +15,7 @@ class ClassePhotoController extends Controller
     public function uploadImages(Request $request, $classeId)
     {
         $request->validate([
-            'images.*' => 'required|image|mimes:jpeg,png,gif,webp,bmp,tiff,svg,ico,ai,jfif|max:2048',
+            'images.*' => 'required|image|mimes:jpeg,png,gif,webp,bmp,tiff,svg,ico,ai,jfif|min:0',
         ]);
 
         $classe = Classe::findOrFail($classeId);

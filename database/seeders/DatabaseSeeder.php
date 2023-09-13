@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ToolSeeder::class,
             ClassesSeeder::class,
-            StudioSeeder::class
+            ClassePhotoSeeder::class,
+            StudioSeeder::class,
+            StudioPhotoSeeder::class
         ]);
     }
 }

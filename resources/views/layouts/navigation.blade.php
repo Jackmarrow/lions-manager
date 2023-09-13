@@ -15,7 +15,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @role('admin')
                     <x-nav-link class="text-decoration-none" :href="route('admin_register.index')" :active="request()->routeIs('admin_register.index')">
-                        {{ __('Manage User') }}
+                        {{ __('Manage Users') }}
                     </x-nav-link>
                     <x-nav-link class="text-decoration-none" :href="route('tools.index')" :active="request()->routeIs('tools.index')">
                         {{ __('Tools') }}
@@ -27,7 +27,7 @@
                         {{ __('Studios') }}
                     </x-nav-link>
                     <x-nav-link class="text-decoration-none" :href="route('calendarClasse.showcal',1)" :active="request()->routeIs('calendarClasse.showcal',1)">
-                        {{ __('Admin Classes Calendar') }}
+                        {{ __('Classes Calendar') }}
                     </x-nav-link>
                     <x-nav-link class="text-decoration-none" :href="route('history.index')" :active="request()->routeIs('history.index')">
                         {{ __('Reservation History') }}
@@ -35,12 +35,18 @@
                     @endrole
                     @role('gestion classe')
                     <x-nav-link class="text-decoration-none" :href="route('userCalendar.showcal',1)" :active="request()->routeIs('userCalendar.showcal',1)">
-                        {{ __('User Classes Calendar') }}
+                        {{ __('Classes Calendar') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('lionsGeekClass.index')" :active="request()->routeIs('lionsGeekClass.index')">
+                        {{ __('LionsGeek Classes') }}
                     </x-nav-link>
                     @endrole
                     @role('gestion studio')
                     <x-nav-link class="text-decoration-none" :href="route('studio_calendar.index')" :active="request()->routeIs('studio_calendar.index')">
                         {{ __('Studios Calendar') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('lionsGeekStudio.index')" :active="request()->routeIs('lionsGeekStudio.index')">
+                        {{ __('LionsGeek Studios') }}
                     </x-nav-link>
                     @endrole
                 </div>
