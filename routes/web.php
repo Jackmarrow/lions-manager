@@ -29,18 +29,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 
 //Redirect to login
 Route::redirect('/', '/login');
-
-// Route Dashboard
-// Route::get('/dashboard', function () {
-//         return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 // Profile Authentification

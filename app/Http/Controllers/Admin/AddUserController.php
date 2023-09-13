@@ -19,7 +19,7 @@ class AddUserController extends Controller
     {
         $roles = Role::all();
         $users = User::all();
-        return view('admin.pages.register', compact('roles', 'users'));
+        return view('admin.backend.register', compact('roles', 'users'));
     }
 
     public function store(Request $request)
