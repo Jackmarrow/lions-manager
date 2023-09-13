@@ -5,19 +5,48 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <img width="50" height="50" src="/storage/images/logo/lions_geek_logo.png" alt="logo">
+                    {{-- <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
+                    </a> --}}
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link> --}}
                     @role('admin')
-                    <x-nav-link :href="route('admin_register.index')" :active="request()->routeIs('admin_register.index')">
-                        {{ __('Register') }}
+                    <x-nav-link class="text-decoration-none" :href="route('admin_register.index')" :active="request()->routeIs('admin_register.index')">
+                        {{ __('Manage Users') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('tools.index')" :active="request()->routeIs('tools.index')">
+                        {{ __('Tools') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('classe.index')" :active="request()->routeIs('classe.index')">
+                        {{ __('Classes') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('studio.index')" :active="request()->routeIs('studio.index')">
+                        {{ __('Studios') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('calendarClasse.showcal',1)" :active="request()->routeIs('calendarClasse.showcal',1)">
+                        {{ __('Classes Calendar') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('history.index')" :active="request()->routeIs('history.index')">
+                        {{ __('Reservation History') }}
+                    </x-nav-link>
+                    @endrole
+                    @role('gestion classe')
+                    <x-nav-link class="text-decoration-none" :href="route('userCalendar.showcal',1)" :active="request()->routeIs('userCalendar.showcal',1)">
+                        {{ __('Classes Calendar') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('lionsGeekClass.index')" :active="request()->routeIs('lionsGeekClass.index')">
+                        {{ __('LionsGeek Classes') }}
+                    </x-nav-link>
+                    @endrole
+                    @role('gestion studio')
+                    <x-nav-link class="text-decoration-none" :href="route('studio_calendar.index')" :active="request()->routeIs('studio_calendar.index')">
+                        {{ __('Studios Calendar') }}
+                    </x-nav-link>
+                    <x-nav-link class="text-decoration-none" :href="route('lionsGeekStudio.index')" :active="request()->routeIs('lionsGeekStudio.index')">
+                        {{ __('LionsGeek Studios') }}
                     </x-nav-link>
                     @endrole
                 </div>
@@ -71,11 +100,11 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        {{-- <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-        </div>
+        </div> --}}
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

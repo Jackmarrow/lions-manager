@@ -28,7 +28,7 @@ class ResetPasswordController extends Controller
                 'password_update'=> 1
             ]);
 
-            return redirect()->route('user.index');
+            return redirect()->route('profile.edit');
         }   
 
         else{

@@ -19,8 +19,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    //  protected $guard = [];
     protected $fillable = [
         'name',
+        'type',
         'password_update',
         'email',
         'password',
@@ -45,4 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Relation userReservation
+    public function userReservations(){
+        return $this->hasMany(ResvClasse::class);
+    }
 }

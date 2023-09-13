@@ -31,12 +31,12 @@ class AuthenticatedSessionController extends Controller
 
         // Redirect the user based on roles
         if (auth()->user()->name == 'admin') {
-            return redirect()->route('admin.index');
+            return redirect()->route('profile.edit');
         } else {
             if(auth()->user()->password_update == 0){
                 return redirect()->route('reset-password.index');
             } else{
-                return redirect()->route('user.index');
+                return redirect()->route('profile.edit');
             }
         }
     }
